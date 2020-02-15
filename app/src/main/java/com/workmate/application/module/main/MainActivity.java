@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.workmate.application.R;
@@ -29,7 +30,9 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
     @BindView(R.id.manager_name) TextView manager_name;
     @BindView(R.id.manager_phone) TextView manager_phone;
     @BindView(R.id.btn_clock_in_out) Button btn_clock;
+    @BindView(R.id.btn_background) ImageView btn_background;
     @BindView(R.id.clock_in) TextView clock_in;
+    @BindView(R.id.clock_out) TextView clock_out;
 
     private MainPresenter mainPresenter;
     private Session session;
@@ -77,9 +80,11 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
             if(session.isClockIn()){
                 clock_in.setText(session.getClockIn());
                 btn_clock.setText(R.string.clock_out);
-            } else {
-                clock_in.setText("-");
-                btn_clock.setText(R.string.clock_in);
+            }
+            if(session.isClockOut()){
+                clock_out.setText(session.getClockOut());
+                btn_background.setVisibility(View.GONE);
+                btn_clock.setVisibility(View.GONE);
             }
 //            manager_name.setText(staff.getManager().getName());
 //            manager_phone.setText(staff.getManager().getPhone());

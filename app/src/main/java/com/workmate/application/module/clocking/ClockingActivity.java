@@ -97,7 +97,7 @@ public class ClockingActivity extends BaseActivity implements ClockingView, View
                 i++;
                 progressBar.setProgress(100);
                 if(session.isClockIn()){
-
+                    clockOut();
                 } else {
                     clockIn();
                 }
@@ -130,6 +130,7 @@ public class ClockingActivity extends BaseActivity implements ClockingView, View
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_cancel:
+                mCountDownTimer.cancel();
                 Intent returnIntent = new Intent();
                 setResult(Activity.RESULT_CANCELED, returnIntent);
                 finish();

@@ -207,6 +207,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_clockin" />
 
     <ImageView
+        android:id="@+id/btn_background"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:src="@drawable/btn_background"

@@ -49,6 +49,10 @@ public class Session {
         return prefClockIn.contains(CLOCK_IN);
     }
 
+    public boolean isClockOut() {
+        return prefClockOut.contains(CLOCK_OUT);
+    }
+
     public String getClockIn() {
         return prefClockIn.getString(CLOCK_IN, null);
     }
