@@ -15,6 +15,7 @@ import com.workmate.application.module.main.pattern.MainDoPresenter;
 import com.workmate.application.module.main.pattern.MainPresenter;
 import com.workmate.application.module.main.pattern.MainView;
 import com.workmate.application.utils.NetworkUtils;
+import com.workmate.application.utils.Session;
 
 import butterknife.BindView;
 
@@ -28,17 +29,19 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
     @BindView(R.id.manager_name) TextView manager_name;
     @BindView(R.id.manager_phone) TextView manager_phone;
     @BindView(R.id.btn_clock_in_out) Button btn_clock;
+    @BindView(R.id.clock_in) TextView clock_in;
 
     private MainPresenter mainPresenter;
+    private Session session;
 
     @Override
     protected void onViewReady(Bundle savedInstanceState, Intent intent) {
         super.onViewReady(savedInstanceState, intent);
         getSupportActionBar().hide();
         mainPresenter = new MainDoPresenter(this, this);
+        session = new Session(this);
         btn_clock.setOnClickListener(this);
         sendStaffRequest();
-
     }
 
     @Override
@@ -71,9 +74,23 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
             wage_amount.setText("Rp "+staff.getWage_amount());
             wage_type.setText(staff.getWage_type());
             address_street1.setText(staff.getLocation().getAddress().getStreet_1());
+            if(session.isClockIn()){
+                clock_in.setText(session.getClockIn());
+                btn_clock.setText(R.string.clock_out);
+            } else {
+                clock_in.setText("-");
+                btn_clock.setText(R.string.clock_in);
+            }
 //            manager_name.setText(staff.getManager().getName());
 //            manager_phone.setText(staff.getManager().getPhone());
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        session.clearSession();
+        finish();
     }
 
     @Override

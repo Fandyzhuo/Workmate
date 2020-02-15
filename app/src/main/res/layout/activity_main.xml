@@ -222,6 +222,7 @@
         android:layout_marginTop="60dp"
         android:background="@drawable/btn_rounded"
         android:hint="Clock In"
+        android:textAllCaps="false"
         android:textColor="#777777"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

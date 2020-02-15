@@ -20,7 +20,13 @@ public class Session {
     public Session(Context context) {
         this.mContext = context;
         prefKey = mContext.getSharedPreferences(KEY, 0);
+        prefClockIn = mContext.getSharedPreferences(CLOCK_IN, 0);
+        prefClockOut = mContext.getSharedPreferences(CLOCK_OUT, 0);
+
         sessionKey = prefKey.edit();
+        sessionClockIn = prefClockIn.edit();
+        sessionClockOut = prefClockOut.edit();
+
     }
 
     public boolean setKey(String key) {
@@ -34,9 +40,13 @@ public class Session {
     }
 
     public boolean setClockIn(String clockIn) {
-        sessionKey.putString(CLOCK_IN, clockIn);
-        sessionKey.commit();
+        sessionClockIn.putString(CLOCK_IN, clockIn);
+        sessionClockIn.commit();
         return true;
+    }
+
+    public boolean isClockIn() {
+        return prefClockIn.contains(CLOCK_IN);
     }
 
     public String getClockIn() {
@@ -44,8 +54,8 @@ public class Session {
     }
 
     public boolean setClockOut(String clockOut) {
-        sessionKey.putString(CLOCK_OUT, clockOut);
-        sessionKey.commit();
+        sessionClockOut.putString(CLOCK_OUT, clockOut);
+        sessionClockOut.commit();
         return true;
     }
 
@@ -54,5 +64,9 @@ public class Session {
     public void clearSession() {
         sessionKey.clear();
         sessionKey.commit();
+        sessionClockOut.clear();
+        sessionClockOut.commit();
+        sessionClockIn.clear();
+        sessionClockIn.commit();
     }
 }

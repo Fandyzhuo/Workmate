@@ -16,6 +16,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.io.*;
+
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -41,6 +45,7 @@ public class ClockingActivity extends BaseActivity implements ClockingView, View
     ProgressBar progressBar;
     @BindView(R.id.tv_cancel)
     TextView tv_cancel;
+    @BindView(R.id.tv_clocking) TextView tv_clocking;
     CountDownTimer mCountDownTimer;
     int i = 0;
 
@@ -55,6 +60,9 @@ public class ClockingActivity extends BaseActivity implements ClockingView, View
         clockingPresenter = new ClockingDoPresenter(this, this);
         session = new Session(this);
         tv_cancel.setOnClickListener(this);
+        if(session.isClockIn()){
+            tv_clocking.setText("Clocking Out...");
+        }
         progressBar.getProgressDrawable().setColorFilter(
                 Color.parseColor("#FFFFFF"), android.graphics.PorterDuff.Mode.SRC_IN);
         progressBar.setProgress(i);
@@ -88,7 +96,11 @@ public class ClockingActivity extends BaseActivity implements ClockingView, View
 
                 i++;
                 progressBar.setProgress(100);
-                clockIn();
+                if(session.isClockIn()){
+
+                } else {
+                    clockIn();
+                }
             }
         };
         mCountDownTimer.start();
@@ -138,6 +150,34 @@ public class ClockingActivity extends BaseActivity implements ClockingView, View
 
     @Override
     public void getClockIn(ClockResponse response) {
+        Date dt = new Date();
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("h:mm a");
+        String displayValue = timeFormatter.format(dt);
+        session.setClockIn(displayValue);
+        Intent i = new Intent(this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        finish();
+    }
+
+    @Override
+    public void clockOut() {
+        if (NetworkUtils.isNetAvailable(this)) {
+            ClockRequest clockRequest = new ClockRequest();
+            clockRequest.setLatitute("-6.2446691");
+            clockRequest.setLongitude("106.8779625");
+            clockRequest.setToken("token "+session.getKey());
+            clockingPresenter.sendClockOut(clockRequest);
+        }
+    }
+
+    @Override
+    public void getClockOut(ClockResponse response) {
+        Date dt = new Date();
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("h:mm a");
+        String displayValue = timeFormatter.format(dt);
+        session.setClockOut(displayValue);
         Intent i = new Intent(this, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

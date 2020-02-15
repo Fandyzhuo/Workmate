@@ -24,13 +24,26 @@ public class ClockingDoPresenter implements ClockingPresenter, ClockingInteracto
     @Override
     public void onSuccess(ClockResponse response) {
         if (view != null) {
-            Log.i("Login Activity", "Success");
+            Log.i("Clocking Activity", "Success");
             view.getClockIn(response);
         }
     }
 
     @Override
     public void onFailed(ClockResponse response) {
+    }
+
+    @Override
+    public void onSuccessClockOut(ClockResponse response) {
+        if (view != null) {
+            Log.i("Clocking Activity", "Success");
+            view.getClockOut(response);
+        }
+    }
+
+    @Override
+    public void onFailClockOut(ClockResponse response) {
+
     }
 
     @Override
@@ -52,6 +65,13 @@ public class ClockingDoPresenter implements ClockingPresenter, ClockingInteracto
     public void sendClockIn(ClockRequest clockRequest) {
         if (view != null) {
             interactor.sendClockIn(clockRequest, this);
+        }
+    }
+
+    @Override
+    public void sendClockOut(ClockRequest clockRequest) {
+        if (view != null) {
+            interactor.sendClockOut(clockRequest, this);
         }
     }
 }

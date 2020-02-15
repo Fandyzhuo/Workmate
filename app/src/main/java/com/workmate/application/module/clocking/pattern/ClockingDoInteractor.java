@@ -41,4 +41,28 @@ class ClockingDoInteractor implements ClockingInteractor {
         });
 
     }
+
+    @Override
+    public void sendClockOut(ClockRequest clockRequest, OnListener listener) {
+        Call<ClockResponse> getClock = ApiManager.getService().sendClockOut(clockRequest.getToken(), clockRequest);
+        getClock.enqueue(new Callback<ClockResponse>() {
+            @Override
+            public void onResponse(Call<ClockResponse> call, Response<ClockResponse> response) {
+                if (response.body() != null) {
+                    ClockResponse clockResponse = response.body();
+                    Log.i(TAG, "Response : " + new Gson().toJson(clockResponse));
+                    if (clockResponse != null) {
+                        listener.onSuccessClockOut(clockResponse);
+                    }
+                } else {
+                    listener.onResponseNull();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ClockResponse> call, Throwable t) {
+
+            }
+        });
+    }
 }

@@ -11,11 +11,17 @@ interface ClockingInteractor {
 
         void onFailed(ClockResponse response);
 
+        void onSuccessClockOut(ClockResponse response);
+
+        void onFailClockOut(ClockResponse response);
+
         void onErrorThrowable(Throwable t);
 
         void onResponseNull();
     }
 
     void sendClockIn(ClockRequest clockRequest, OnListener listener);
+
+    void sendClockOut(ClockRequest clockRequest, OnListener listener);
 
 }

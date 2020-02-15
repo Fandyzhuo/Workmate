@@ -6,4 +6,8 @@ public interface ClockingView {
     void clockIn();
 
     void getClockIn(ClockResponse response);
+
+    void clockOut();
+
+    void getClockOut(ClockResponse response);
 }
