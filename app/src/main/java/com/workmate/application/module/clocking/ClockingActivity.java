@@ -2,10 +2,12 @@ package com.workmate.application.module.clocking;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -21,11 +23,19 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.workmate.application.R;
 import com.workmate.application.base.BaseActivity;
+import com.workmate.application.model.request.ClockRequest;
+import com.workmate.application.model.response.ClockResponse;
+import com.workmate.application.module.clocking.pattern.ClockingDoPresenter;
+import com.workmate.application.module.clocking.pattern.ClockingPresenter;
+import com.workmate.application.module.clocking.pattern.ClockingView;
 import com.workmate.application.module.main.MainActivity;
+import com.workmate.application.module.main.pattern.MainPresenter;
+import com.workmate.application.utils.NetworkUtils;
+import com.workmate.application.utils.Session;
 
 import butterknife.BindView;
 
-public class ClockingActivity extends BaseActivity implements View.OnClickListener {
+public class ClockingActivity extends BaseActivity implements ClockingView, View.OnClickListener {
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -34,11 +44,16 @@ public class ClockingActivity extends BaseActivity implements View.OnClickListen
     CountDownTimer mCountDownTimer;
     int i = 0;
 
+    private ClockingPresenter clockingPresenter;
+    private Session session;
 
     @Override
     protected void onViewReady(Bundle savedInstanceState, Intent intent) {
         super.onViewReady(savedInstanceState, intent);
         getSupportActionBar().hide();
+
+        clockingPresenter = new ClockingDoPresenter(this, this);
+        session = new Session(this);
         tv_cancel.setOnClickListener(this);
         progressBar.getProgressDrawable().setColorFilter(
                 Color.parseColor("#FFFFFF"), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -53,9 +68,27 @@ public class ClockingActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void onFinish() {
+//                LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//                if (ContextCompat.checkSelfPermission(ClockingActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+//                        ContextCompat.checkSelfPermission(ClockingActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                    // TODO: Consider calling
+//                    //    Activity#requestPermissions
+//                    // here to request the missing permissions, and then overriding
+//                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                    //                                          int[] grantResults)
+//                    // to handle the case where the user grants the permission. See the documentation
+//                    // for Activity#requestPermissions for more details.
+//                    return;
+//                }
+//                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//                double longitude = location.getLongitude();
+//                double latitude = location.getLatitude();
+//
+//                Log.i("LOCATION", latitude+" dan long "+longitude);
 
                 i++;
                 progressBar.setProgress(100);
+                clockIn();
             }
         };
         mCountDownTimer.start();
@@ -90,5 +123,25 @@ public class ClockingActivity extends BaseActivity implements View.OnClickListen
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void clockIn() {
+        if (NetworkUtils.isNetAvailable(this)) {
+            ClockRequest clockRequest = new ClockRequest();
+            clockRequest.setLatitute("-6.2446691");
+            clockRequest.setLongitude("106.8779625");
+            clockRequest.setToken("token "+session.getKey());
+            clockingPresenter.sendClockIn(clockRequest);
+        }
+    }
+
+    @Override
+    public void getClockIn(ClockResponse response) {
+        Intent i = new Intent(this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        finish();
     }
 }
