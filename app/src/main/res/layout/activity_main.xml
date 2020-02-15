@@ -7,12 +7,204 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/position_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="88dp"
+        android:hint="Barista"
+        android:textColor="#777777"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/client_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:hint="Kaizen Coffee Co."
+        android:textColor="#777777"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/position_name" />
+
+    <TextView
+        android:id="@+id/wage_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="27dp"
+        android:hint="Rp 120,000"
+        android:textColor="#777777"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintLeft_toRightOf="@id/position_name"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/wage_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="27dp"
+        android:hint="per day"
+        android:textColor="#777777"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintLeft_toRightOf="@id/client_name"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wage_amount" />
+
+
+    <ImageView
+        android:id="@+id/iv_location"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/ic_location_on_black_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/client_name" />
+
+    <TextView
+        android:id="@+id/address_street1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6.25dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="27dp"
+        android:hint="888 6-7 Thanon Ekkamai, Khwaeng Phra Khanong Nuea, Khet Watthana, Krung Thep Maha Nakhon 10110, Thailand"
+        android:textColor="#777777"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_location"
+        app:layout_constraintTop_toBottomOf="@+id/client_name" />
+
+    <ImageView
+        android:id="@+id/iv_person"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_person_black_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/address_street1" />
+
+    <TextView
+        android:id="@+id/tv_location_manager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="6.25dp"
+        android:layout_marginEnd="27dp"
+        android:text="Location Manager"
+        android:textColor="#777777"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_person"
+        app:layout_constraintTop_toBottomOf="@+id/address_street1" />
+
+    <TextView
+        android:id="@+id/manager_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Yai Thong-oon"
+        android:textColor="#777777"
+        android:textSize="13sp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toEndOf="@id/tv_location_manager"
+        app:layout_constraintTop_toBottomOf="@id/address_street1"/>
+
+    <ImageView
+        android:id="@+id/iv_phone"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_phone_black_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_person" />
+
+    <TextView
+        android:id="@+id/tv_contact_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="6.25dp"
+        android:layout_marginEnd="27dp"
+        android:text="Contact Number"
+        android:textColor="#777777"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_phone"
+        app:layout_constraintTop_toBottomOf="@+id/iv_person" />
+
+    <TextView
+        android:id="@+id/manager_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="+66-955-5695-65"
+        android:textColor="#777777"
+        android:textSize="13sp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toEndOf="@id/tv_contact_number"
+        app:layout_constraintTop_toBottomOf="@id/iv_person"/>
+
+    <TextView
+        android:id="@+id/tv_clockin"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Clock in"
+        android:textColor="#777777"
+        android:textSize="13sp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_phone"/>
+
+    <TextView
+        android:id="@+id/tv_clockout"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Clock out"
+        android:textColor="#777777"
+        android:textSize="13sp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toEndOf="@id/tv_clockin"
+        app:layout_constraintTop_toBottomOf="@id/iv_phone"/>
+
+    <TextView
+        android:id="@+id/clock_in"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textColor="#777777"
+        android:textSize="25sp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_clockin"/>
+
+    <TextView
+        android:id="@+id/clock_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textColor="#777777"
+        android:textSize="25sp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toEndOf="@id/clock_in"
+        app:layout_constraintTop_toBottomOf="@id/tv_clockin"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
