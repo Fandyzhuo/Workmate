@@ -18,6 +18,11 @@ import com.workmate.application.module.main.pattern.MainView;
 import com.workmate.application.utils.NetworkUtils;
 import com.workmate.application.utils.Session;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Arrays;
+import java.util.List;
+
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity implements MainView, View.OnClickListener {
@@ -71,11 +76,14 @@ public class MainActivity extends BaseActivity implements MainView, View.OnClick
     @Override
     public void getStaff(Staff staff) {
         if (staff != null) {
-            Log.i("MainActivity Isi", staff.getClient().getName());
+            NumberFormat formatter = new DecimalFormat("#,###");
+            String formattedNumber = formatter.format(staff.getWage_amount());
+
+            List<String> items = Arrays.asList(staff.getWage_type().split("_"));
             client_name.setText(staff.getClient().getName());
             position_name.setText(staff.getPosition().getName());
-            wage_amount.setText("Rp "+staff.getWage_amount());
-            wage_type.setText(staff.getWage_type());
+            wage_amount.setText("Rp "+formattedNumber);
+            wage_type.setText(items.get(0)+" "+items.get(1));
             address_street1.setText(staff.getLocation().getAddress().getStreet_1());
             if(session.isClockIn()){
                 clock_in.setText(session.getClockIn());

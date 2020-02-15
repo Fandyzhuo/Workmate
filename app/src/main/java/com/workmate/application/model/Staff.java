@@ -4,7 +4,7 @@ public class Staff {
     private int id;
     private String title;
     private String description;
-    private String wage_amount;
+    private double wage_amount;
     private String wage_type;
     private String start_time;
     private String end_time;
@@ -29,11 +29,11 @@ public class Staff {
         this.description = description;
     }
 
-    public String getWage_amount() {
+    public double getWage_amount() {
         return wage_amount;
     }
 
-    public void setWage_amount(String wage_amount) {
+    public void setWage_amount(double wage_amount) {
         this.wage_amount = wage_amount;
     }
 
